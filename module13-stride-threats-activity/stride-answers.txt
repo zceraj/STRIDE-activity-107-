@@ -8,7 +8,11 @@ The injected payload goes through and clicking "Back home" the page's title was 
 When repeated with secure.ts the injection failed; malicious script did not execute preventing the webpage injection with the gotcha link.
 
 Repudiation (R): 
-[TO-DO]
+With insecure.ts, I sent "delete everything" as "admin" a few times.
+get-messages showed it as if admin sent it with no log of timestamp or IP.
+This means I could easily deny sending it, meaning my actions can be repudiated.
+But when I used secure.ts, it logs request time, method, and IP to server.log. The username can still be faked,
+but the log ties each request to its source.
 
 Information Disclosure (I):
 
@@ -35,4 +39,9 @@ while the insecure.ts only handles when users are not found.
 Furthermore, secure.ts also has rate limit logic. 
 
 Escalation of Privilege (E)
-[TO-DO]
+With insecure.ts, user IDs 2 and 3 returned unautherized, but 
+1 returned "User role updated successfully". The server checks the role whatever
+userID is in the form, which the client controls, so anyone can act as admin by entering 1.
+With secure.ts, every ID returned "Unautherized" because the role checks the userID stored in the 
+server-side session instead of the request. You'd have to actually log in as admin to get that session,
+so changing the form input doesnt work.

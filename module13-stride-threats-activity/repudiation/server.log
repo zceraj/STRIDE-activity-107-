@@ -1,0 +1,12 @@
+[11/2/2026, 6:02:44 PM] GET /send-message-form - ::1
+[11/2/2026, 6:02:52 PM] POST /send-message - ::1
+[11/2/2026, 6:02:52 PM] Message sent by admin: delete everything
+
+[11/2/2026, 6:03:04 PM] POST /send-message - ::1
+[11/2/2026, 6:03:04 PM] Message sent by admin: delete everything
+
+[11/2/2026, 6:03:06 PM] POST /send-message - ::1
+[11/2/2026, 6:03:06 PM] Message sent by admin: delete everything
+
+[11/2/2026, 6:03:16 PM] GET /get-messages - ::1
+[11/2/2026, 6:03:16 PM] Messages retrieved by ::1
