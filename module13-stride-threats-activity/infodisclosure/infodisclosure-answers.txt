@@ -1,0 +1,8 @@
+4. In the browser, after typing the malicious request, the web displays the following information: 
+User: { _id: new ObjectId('6ae8df1ad27eccc8fd9f0a8d'), username: 'user99', password: 'password1', __v: 0 }, 
+which shows the sensitive data from the database through a non-SQL injection. 
+
+5. In the browser, after typing the malicious request with secure.ts this time, 
+the web displays the message "Invalid username format" instead of leaking the sensitive information. 
+This happens because instead of directly using user-provided values in the query like in insecure.ts, 
+secure.ts makes sure to sanitize the input by adding a type check and removing illegal expressions like non-alphabetics for the query.
