@@ -1,10 +1,15 @@
-spoofing (S)
+spoofing (S): 
+[TO-DO]
+
 tampering (T):
 
 The insecure server is vulnerable to tampering since it accepts a malicious script in the name field of the form.
 The injected payload goes through and clicking "Back home" the page's title was replaced by the injected gotcha link.
 When repeated with secure.ts the injection failed; malicious script did not execute preventing the webpage injection with the gotcha link.
-Repudiation (R)
+
+Repudiation (R): 
+[TO-DO]
+
 Information Disclosure (I):
 
 4. In the browser, after typing the malicious request, the web displays the following information: 
@@ -30,3 +35,4 @@ while the insecure.ts only handles when users are not found.
 Furthermore, secure.ts also has rate limit logic. 
 
 Escalation of Privilege (E)
+[TO-DO]
