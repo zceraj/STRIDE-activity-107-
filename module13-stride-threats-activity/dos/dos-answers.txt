@@ -1,0 +1,10 @@
+4. In the browser, after typing a malicious request with insecure.ts, 
+the web crashes immediately, showing that the site cannot be reached. 
+The terminal shows that it runs into a CastError and BSONError, 
+saying that the input must be a 24 character hex string, 12 byte Unit8Array, or an integer.
+
+5. In the browser, after typing a malicious request with secure.ts this time, 
+it does not crash anymore but shows "Internal server error" on the web. 
+That happened because secure.ts handles the error 500 which is the internal crashes on the server side, 
+while the insecure.ts only handles when users are not found. 
+Furthermore, secure.ts also has rate limit logic. 
