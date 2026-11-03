@@ -1,20 +1,48 @@
 spoofing (S): 
 [TO-DO]
 
-tampering (T):
+## Spoofing (S): 
+1. Briefly explain the spoofing vulnerability in **insecure.ts**.
+The spoofing vunerability in insecure.ts leaves cookies exposed for hackers to steal. 
+It doesn't have proper safety that doesn't let the javascript scripts read the cookies 
+and it also writes the secret in plaintext "SOMESECRET", so hackers can base their scripts 
+off of the sourcecode and real secrets. The vulnerabilities overall allows the hackers to 
+login to a user's session and act as that user using the cookies.  
+
+2. Briefly explain different ways in which vulnerability can be exploited.
+The vunerabiity can be exploited by stealing the cookies, which the mal-steal-cookie file does. 
+When I clicked a link in the html file it takes me to http://localhost:8001/malhome. 
+There it logs the connect.sid cookie which the malicious guy can then use to log in as me. 
+Another way it can be exploited is CSRF which brings you to http://localhost:8000/sensitive, 
+which is connected to the original site hosted on localhost:8000, it then submits a post request 
+and returns either {"message":"Operation successful"} or {"message":"Unauthorized Access"} 
+depending on if its the admin. 
+
+3. Briefly explain why **secure.ts** does not have the spoofing vulnerability in **insecure.ts**.
+secure.ts doesn't have the spoofing vunerability because in the middleware section it added     
+cookie: {
+        httpOnly: true,
+        sameSite: true,
+    }
+This means that the javascript can't read the cookie and the browser sends requests that started 
+from the site itself and not random files. 
+It also doesn't hardcode the secret as "SOMESECRET" and rather uses 
+const secret: string = process.argv[2]; which means the secret is not written in plaintext if you get the source code.  
+
+## Tampering (T):
 
 The insecure server is vulnerable to tampering since it accepts a malicious script in the name field of the form.
 The injected payload goes through and clicking "Back home" the page's title was replaced by the injected gotcha link.
 When repeated with secure.ts the injection failed; malicious script did not execute preventing the webpage injection with the gotcha link.
 
-Repudiation (R): 
+## Repudiation (R): 
 With insecure.ts, I sent "delete everything" as "admin" a few times.
 get-messages showed it as if admin sent it with no log of timestamp or IP.
 This means I could easily deny sending it, meaning my actions can be repudiated.
 But when I used secure.ts, it logs request time, method, and IP to server.log. The username can still be faked,
 but the log ties each request to its source.
 
-Information Disclosure (I):
+## Information Disclosure (I):
 
 4. In the browser, after typing the malicious request, the web displays the following information: 
 User: { _id: new ObjectId('6ae8df1ad27eccc8fd9f0a8d'), username: 'user99', password: 'password1', __v: 0 }, 
@@ -25,7 +53,7 @@ the web displays the message "Invalid username format" instead of leaking the se
 This happens because instead of directly using user-provided values in the query like in insecure.ts, 
 secure.ts makes sure to sanitize the input by adding a type check and removing illegal expressions like non-alphabetics for the query.
 
-Denial of Service (D):
+## Denial of Service (D):
 
 4. In the browser, after typing a malicious request with insecure.ts, 
 the web crashes immediately, showing that the site cannot be reached. 
@@ -38,7 +66,7 @@ That happened because secure.ts handles the error 500 which is the internal cras
 while the insecure.ts only handles when users are not found. 
 Furthermore, secure.ts also has rate limit logic. 
 
-Escalation of Privilege (E)
+## Escalation of Privilege (E)
 With insecure.ts, user IDs 2 and 3 returned unautherized, but 
 1 returned "User role updated successfully". The server checks the role whatever
 userID is in the form, which the client controls, so anyone can act as admin by entering 1.
